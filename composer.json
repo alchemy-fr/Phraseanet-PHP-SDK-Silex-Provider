@@ -5,6 +5,11 @@
     {
         "name": "Romain Neutron",
         "email": "imprec@gmail.com"
+    },
+    {
+        "name": "Phraseanet Team",
+        "email": "info@alchemy.fr",
+        "homepage": "http://www.phraseanet.com/"
     }
     ],
     "require": {
