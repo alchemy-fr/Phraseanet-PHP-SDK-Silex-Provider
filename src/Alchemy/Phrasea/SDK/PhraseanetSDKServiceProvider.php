@@ -45,7 +45,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                             return new ArrayCache();
                             break;
                         case 'memcache':
-                            $memcache = new Memcache();
+                            $memcache = new \Memcache();
 
                             $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
                             $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
@@ -58,7 +58,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                             return $cache;
                             break;
                         case 'memcached':
-                            $memcached = new Memcached();
+                            $memcached = new \Memcached();
 
                             $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
                             $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
@@ -82,6 +82,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                 $guzzle->addSubscriber($cache);
                 $guzzle->setConfig(array(
                     'cache.override_ttl' => 300,
+                    'cache.revalidate' => 'skip',
                 ));
 
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
