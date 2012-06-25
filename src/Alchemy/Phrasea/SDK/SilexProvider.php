@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Phraseanet SDK Silex Provider.
+ *
+ * (c) Alchemy <info@alchemy.fr>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Alchemy\Phrasea\SDK;
 
 use Alchemy\Phrasea\SDK\Exception\RuntimeException;
@@ -7,6 +16,9 @@ use PhraseanetSDK\Client;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
+/**
+ * Phraseanet SDK Silex provider
+ */
 class SilexProvider implements ServiceProviderInterface
 {
 
@@ -29,7 +41,7 @@ class SilexProvider implements ServiceProviderInterface
                 $guzzle = $app['guzzle.client'];
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
-                return  new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
+                return new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
             });
     }
 
