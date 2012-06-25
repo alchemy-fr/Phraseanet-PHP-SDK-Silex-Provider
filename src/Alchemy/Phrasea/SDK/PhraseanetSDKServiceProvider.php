@@ -27,6 +27,58 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
         $app['phraseanet-sdk'] = $app->share(function() use ($app) {
 
                 $guzzle = $app['guzzle.client'];
+                /* @var $guzzle \Guzzle\Http\Client */
+
+                $getCache = function () use ($app) {
+
+                    if(!isset($app['phraseanet-sdk.cache'])) {
+                        return new \Doctrine\Common\Cache\ArrayCache();
+                    }
+
+                    switch(strtolower($app['phraseanet-sdk.cache'])) {
+                        case 'array':
+                            return new \Doctrine\Common\Cache\ArrayCache();
+                            break;
+                        case 'memcache':
+                            $memcache = new Memcache();
+
+                            $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
+                            $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
+
+                            $memcache->addServer($host,$port);
+
+                            $cache = new \Doctrine\Common\Cache\MemcacheCache();
+                            $cache->setMemcache($memcache);
+
+                            return $cache;
+                            break;
+                        case 'memcached':
+                            $memcached = new Memcached();
+
+                            $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
+                            $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
+
+                            $memcached->addServer($host,$port);
+
+                            $cache = new \Doctrine\Common\Cache\MemcachedCache();
+                            $cache->setMemcached($memcached);
+
+                            return $cache;
+                            break;
+                        default:
+                            throw new RuntimeException(sprintf('Cache `%s` is not supported', $app['phraseanet-sdk.cache']));
+                            break;
+                    }
+                };
+
+                $adapter = new DoctrineCacheAdapter($getCache());
+                $cache = new CachePlugin($adapter, true);
+
+                $guzzle->addSubscriber($cache);
+                $guzzle->setConfig(array(
+                    'cache.override_ttl' => 300,
+                ));
+
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
                 $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
