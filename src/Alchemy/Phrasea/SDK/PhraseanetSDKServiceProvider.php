@@ -12,6 +12,11 @@
 namespace Alchemy\Phrasea\SDK;
 
 use Alchemy\Phrasea\SDK\Exception\RuntimeException;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\MemcacheCache;
+use Doctrine\Common\Cache\MemcachedCache;
+use Guzzle\Common\Cache\DoctrineCacheAdapter;
+use Guzzle\Http\Plugin\CachePlugin;
 use PhraseanetSDK\Client;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
@@ -32,12 +37,12 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                 $getCache = function () use ($app) {
 
                     if(!isset($app['phraseanet-sdk.cache'])) {
-                        return new \Doctrine\Common\Cache\ArrayCache();
+                        return new ArrayCache();
                     }
 
                     switch(strtolower($app['phraseanet-sdk.cache'])) {
                         case 'array':
-                            return new \Doctrine\Common\Cache\ArrayCache();
+                            return new ArrayCache();
                             break;
                         case 'memcache':
                             $memcache = new Memcache();
@@ -47,7 +52,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
 
                             $memcache->addServer($host,$port);
 
-                            $cache = new \Doctrine\Common\Cache\MemcacheCache();
+                            $cache = new MemcacheCache();
                             $cache->setMemcache($memcache);
 
                             return $cache;
@@ -60,7 +65,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
 
                             $memcached->addServer($host,$port);
 
-                            $cache = new \Doctrine\Common\Cache\MemcachedCache();
+                            $cache = new MemcachedCache();
                             $cache->setMemcached($memcached);
 
                             return $cache;
