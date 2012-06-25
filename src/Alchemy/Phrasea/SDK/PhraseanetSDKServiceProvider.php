@@ -41,7 +41,14 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                 $guzzle = $app['guzzle.client'];
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
-                return new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
+
+                $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
+
+                if (isset($app['phraseanet-sdk.apiDevToken'])) {
+                    $client->setAccessToken($app['phraseanet-sdk.apiDevToken']);
+                }
+
+                return $client;
             });
     }
 
