@@ -19,7 +19,7 @@ use Silex\ServiceProviderInterface;
 /**
  * Phraseanet SDK Silex provider
  */
-class SilexProvider implements ServiceProviderInterface
+class PhraseanetSDKServiceProvider implements ServiceProviderInterface
 {
 
     public function register(Application $app)
