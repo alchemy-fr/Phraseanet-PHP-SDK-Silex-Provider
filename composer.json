@@ -1,0 +1,20 @@
+{
+    "name": "phraseanet/silex-sdk-provider",
+    "description": "Phraseanet SDK Silex Provider",
+    "authors": [
+    {
+        "name": "Romain Neutron",
+        "email": "imprec@gmail.com"
+    }
+    ],
+    "require": {
+        "phraseanet/php-sdk": "*",
+        "silex/silex": "*",
+	"guzzle/silex-provider": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Alchemy": "src"
+        }
+    }
+}
