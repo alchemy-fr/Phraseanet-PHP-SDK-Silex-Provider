@@ -20,6 +20,7 @@
 	"silex/silex":"dev-master"	
 
 	},
+        "minimum-stability": "dev,
     "autoload": {
         "psr-0": {
             "Alchemy": "src"
