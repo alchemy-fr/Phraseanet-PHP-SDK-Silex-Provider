@@ -13,9 +13,9 @@
     }
     ],
     "require": {
-        "phraseanet/php-sdk": "*",
-        "silex/silex": "*",
-	"guzzle/silex-provider": "*"
+        "phraseanet/php-sdk": "dev-master",
+        "silex/silex": "dev-master",
+        "guzzle/silex-provider": "dev-master"
     },
     "autoload": {
         "psr-0": {
