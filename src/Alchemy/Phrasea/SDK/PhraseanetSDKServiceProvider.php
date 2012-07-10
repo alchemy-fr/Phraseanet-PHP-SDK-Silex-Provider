@@ -20,6 +20,7 @@ use Guzzle\Http\Plugin\CachePlugin;
 use PhraseanetSDK\Client;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use PhraseanetSDK\HttpAdapter\Guzzle as Adapter;
 
 /**
  * Phraseanet SDK Silex provider
@@ -87,7 +88,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
 
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
-                $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], $guzzle, $app['monolog']);
+                $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], new Adapter($guzzle), $app['monolog']);
 
                 if (isset($app['phraseanet-sdk.apiDevToken'])) {
                     $client->setAccessToken($app['phraseanet-sdk.apiDevToken']);
