@@ -13,10 +13,13 @@
     }
     ],
     "require": {
-        "phraseanet/php-sdk": "dev-master",
-        "silex/silex": "dev-master",
         "guzzle/silex-provider": "dev-master"
     },
+    "require-dev" : {
+        "phraseanet/php-sdk": "dev-master",
+	"silex/silex":"dev-master"	
+
+	},
     "autoload": {
         "psr-0": {
             "Alchemy": "src"
