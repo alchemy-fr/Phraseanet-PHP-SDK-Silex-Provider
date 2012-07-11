@@ -17,10 +17,10 @@
     },
     "require-dev" : {
         "phraseanet/php-sdk": "dev-master",
-	"silex/silex":"dev-master"	
+        "silex/silex":"dev-master"
 
-	},
-        "minimum-stability": "dev,
+    },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
             "Alchemy": "src"
