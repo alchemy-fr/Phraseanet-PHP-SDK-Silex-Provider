@@ -1,9 +1,11 @@
 {
-    "hash": "f7777a9dc63aa10b72aff1fd9f6fe198",
+    "hash": "9278a069cec50ee028a9e5df2388e487",
     "packages": [
         {
             "package": "guzzle/guzzle",
-            "version": "v2.7.2"
+            "version": "dev-master",
+            "source-reference": "56c7fa0aebbac8b76a03ff8f6f7046b224a47266",
+            "commit-date": "1341990616"
         },
         {
             "package": "guzzle/silex-provider",
@@ -13,14 +15,14 @@
         },
         {
             "package": "symfony/event-dispatcher",
-            "version": "v2.0.15"
+            "version": "v2.1.0-BETA2"
         }
     ],
     "packages-dev": null,
     "aliases": [
 
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "guzzle/silex-provider": 20,
         "phraseanet/php-sdk": 20,
