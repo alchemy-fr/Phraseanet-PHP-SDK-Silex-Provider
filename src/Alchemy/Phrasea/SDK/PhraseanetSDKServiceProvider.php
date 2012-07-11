@@ -88,7 +88,7 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
 
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
-                $logger = isset($app['monolog']) && ! $app['debug'] ? $app['monolog'] : null;
+                $logger = isset($app['monolog']) && $app['debug'] ? $app['monolog'] : null;
 
                 $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], new Adapter($guzzle), $logger);
 
