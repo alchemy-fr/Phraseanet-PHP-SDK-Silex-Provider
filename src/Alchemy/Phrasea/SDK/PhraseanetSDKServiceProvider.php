@@ -16,7 +16,7 @@ use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\Common\Cache\MemcacheCache;
 use Doctrine\Common\Cache\MemcachedCache;
 use Guzzle\Common\Cache\DoctrineCacheAdapter;
-use Guzzle\Http\Plugin\CachePlugin;
+use Guzzle\Http\Plugin\CachePlugin as GuzzleCachePlugin;
 use PhraseanetSDK\Client;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
@@ -78,17 +78,19 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                 };
 
                 $adapter = new DoctrineCacheAdapter($getCache());
-                $cache = new CachePlugin($adapter, true);
 
-                $guzzle->addSubscriber($cache);
-                $guzzle->setConfig(array(
-                    'cache.override_ttl' => 300,
-                    'cache.revalidate' => 'skip',
-                ));
+                $lifetime = isset($app['phraseanet-sdk.cache_ttl']) ? $app['phraseanet-sdk.cache_ttl'] : 60;
+                $revalidate = isset($app['phraseanet-sdk.cache_revalidate']) ? $app['phraseanet-sdk.cache_revalidate'] : null;
+
+                $guzzle->addSubscriber(new GuzzleCachePlugin($adapter, $lifetime));
+
+                $guzzle->addSubscriber(new CachePlugin($lifetime, $revalidate));
 
                 $guzzle->setBaseUrl($app['phraseanet-sdk.apiUrl']);
 
-                $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], new Adapter($guzzle), $app['monolog']);
+                $logger = isset($app['monolog']) && ! $app['debug'] ? $app['monolog'] : null;
+
+                $client = new Client($app['phraseanet-sdk.apiKey'], $app['phraseanet-sdk.apiSecret'], new Adapter($guzzle), $logger);
 
                 if (isset($app['phraseanet-sdk.apiDevToken'])) {
                     $client->setAccessToken($app['phraseanet-sdk.apiDevToken']);
