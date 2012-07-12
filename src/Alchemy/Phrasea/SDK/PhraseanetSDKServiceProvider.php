@@ -48,8 +48,8 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                         case 'memcache':
                             $memcache = new \Memcache();
 
-                            $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
-                            $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
+                            $host = $app['phraseanet-sdk.cache_host'];
+                            $port = $app['phraseanet-sdk.cache_port'];
 
                             $memcache->addServer($host,$port);
 
@@ -61,8 +61,8 @@ class PhraseanetSDKServiceProvider implements ServiceProviderInterface
                         case 'memcached':
                             $memcached = new \Memcached();
 
-                            $host = isset($app['phraseanet-sdk.memcache_host']) ?$app['phraseanet-sdk.memcache_host'] : 'localhost' ;
-                            $port = isset($app['phraseanet-sdk.memcache_port']) ?$app['phraseanet-sdk.memcache_port'] :11211 ;
+                            $host = $app['phraseanet-sdk.cache_host'];
+                            $port = $app['phraseanet-sdk.cache_port'];
 
                             $memcached->addServer($host,$port);
 
