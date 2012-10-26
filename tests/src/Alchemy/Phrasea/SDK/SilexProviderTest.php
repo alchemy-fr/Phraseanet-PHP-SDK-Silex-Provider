@@ -19,5 +19,7 @@ class SilexProviderTest extends \PHPUnit_Framework_TestCase
         $app->register(new PhraseanetSDKServiceProvider());
         $app->register(new MonologServiceProvider());
         $app->register(new GuzzleServiceProvider());
+
+	$app['phraseanet-sdk'];
     }
 }
