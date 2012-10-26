@@ -1,6 +1,7 @@
 {
     "name": "phraseanet/silex-sdk-provider",
     "description": "Phraseanet SDK Silex Provider",
+    "license": "MIT",
     "authors": [
     {
         "name": "Romain Neutron",
