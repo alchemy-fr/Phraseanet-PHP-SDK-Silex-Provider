@@ -18,7 +18,6 @@
     "require-dev" : {
         "phraseanet/php-sdk": "dev-master",
         "silex/silex":"dev-master"
-
     },
     "minimum-stability": "dev",
     "autoload": {
