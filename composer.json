@@ -14,7 +14,8 @@
     }
     ],
     "require": {
-        "guzzle/silex-provider": "dev-master"
+        "guzzle/silex-provider": "dev-master",
+ 	"guzzle/guzzle": "~3.0"
     },
     "require-dev" : {
         "phraseanet/php-sdk": "dev-master",
